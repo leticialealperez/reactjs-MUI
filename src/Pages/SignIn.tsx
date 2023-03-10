@@ -79,7 +79,12 @@ const SignIn: React.FC = () => {
                     </Box>
                     <Typography variant="body2" color="text.secondary" marginTop={5}>
                         Copyright &copy;{" "}
-                        <Link href="www.growdev.com.br" target="_blank" variant="body2">
+                        <Link
+                            color="inherit"
+                            href="www.growdev.com.br"
+                            target="_blank"
+                            variant="body2"
+                        >
                             Your Website
                         </Link>{" "}
                         2023.
