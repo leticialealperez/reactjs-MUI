@@ -94,15 +94,9 @@ const Notes: React.FC = () => {
                                             <IconButton color="success">
                                                 <Edit />
                                             </IconButton>
-                                            {item.favorite ? (
-                                                <IconButton color="error">
-                                                    <Favorite />
-                                                </IconButton>
-                                            ) : (
-                                                <IconButton color="inherit">
-                                                    <FavoriteBorder />
-                                                </IconButton>
-                                            )}
+                                            <IconButton color={item.favorite ? "error" : "inherit"}>
+                                                {item.favorite ? <Favorite /> : <FavoriteBorder />}
+                                            </IconButton>
                                         </CardActions>
                                     </Card>
                                 </Grid>
