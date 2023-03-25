@@ -77,7 +77,7 @@ const Notes: React.FC = () => {
 
                         <Grid container gap={4} marginTop={2}>
                             {MockTasks.map((item) => (
-                                <Grid item xs={12} sm={6} md={4} lg={3}>
+                                <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
                                     <Card>
                                         <CardContent>
                                             <Typography gutterBottom variant="h5" component="div">
