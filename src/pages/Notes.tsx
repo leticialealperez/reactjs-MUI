@@ -51,7 +51,11 @@ const MockTasks: Array<Task> = [
 ];
 
 const Notes: React.FC = () => {
-    const [userLogged, setUserLogged] = useState<User>({ email: "", password: "", tasks: [] });
+    const [userLogged, setUserLogged] = useState<User>({
+        email: "",
+        password: "",
+        tasks: MockTasks,
+    });
     const navigate = useNavigate();
     const dadoStorage =
         localStorage.getItem("usuarioLogado") || sessionStorage.getItem("usuarioLogado");
@@ -60,7 +64,12 @@ const Notes: React.FC = () => {
         if (!dadoStorage) {
             navigate("/");
         } else {
-            setUserLogged(JSON.parse(dadoStorage));
+            const dataParsed = JSON.parse(dadoStorage);
+            setUserLogged((prev) => ({
+                email: dataParsed.email,
+                password: dataParsed.password,
+                tasks: prev.tasks,
+            }));
         }
     }, []);
 
@@ -75,10 +84,10 @@ const Notes: React.FC = () => {
                         <Typography variant="h4"> Recados</Typography>
                         <Divider />
 
-                        <Grid container gap={4} marginTop={2}>
-                            {MockTasks.map((item) => (
+                        <Grid container spacing={3} marginTop={2}>
+                            {userLogged.tasks.map((item) => (
                                 <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
-                                    <Card>
+                                    <Card elevation={5}>
                                         <CardContent>
                                             <Typography gutterBottom variant="h5" component="div">
                                                 {item.description}
@@ -108,8 +117,8 @@ const Notes: React.FC = () => {
             <Fab
                 color="primary"
                 aria-label="add"
-                size="small"
-                sx={{ position: "fixed", right: "20px", bottom: "20px" }}
+                size="medium"
+                sx={{ position: "fixed", right: "30px", bottom: "30px" }}
             >
                 <Add />
             </Fab>

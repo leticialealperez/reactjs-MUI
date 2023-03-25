@@ -1,7 +1,8 @@
 import { LockOpenOutlined } from "@mui/icons-material";
 import { Grid, Box, Typography, Link } from "@mui/material";
 import { pink } from "@mui/material/colors";
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Form from "../components/Form";
 import HeaderForm from "../components/HeaderForm";
@@ -22,6 +23,20 @@ import HeaderForm from "../components/HeaderForm";
 */
 
 const SignIn: React.FC = () => {
+    const dataStorage =
+        localStorage.getItem("usuarioLogado") || sessionStorage.getItem("usuarioLogado");
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (dataStorage) {
+            const userLogged = JSON.parse(dataStorage);
+
+            if (userLogged.email) {
+                navigate("/notes");
+            }
+        }
+    }, []);
     return (
         <Grid container height="100vh">
             <Grid

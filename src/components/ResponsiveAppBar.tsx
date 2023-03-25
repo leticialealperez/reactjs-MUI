@@ -24,20 +24,13 @@ function ResponsiveAppBar({ userLoggedEmail }: ResponsiveAppBarProps) {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
     const handleCloseNavMenu = (url: string) => {
         console.log("Clicou no link", url);
         setAnchorElNav(null);
-        navigate(url);
+        // navigate(url);
     };
 
-    const handleCloseUserMenu = () => {
+    const handleLogoutUser = () => {
         // console.log("Clicou em sair");
         // .. faz aqui a logica antecedente ao removeItem
 
@@ -48,7 +41,7 @@ function ResponsiveAppBar({ userLoggedEmail }: ResponsiveAppBarProps) {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" color="secondary">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
@@ -59,11 +52,9 @@ function ResponsiveAppBar({ userLoggedEmail }: ResponsiveAppBarProps) {
                         sx={{
                             mr: 2,
                             display: { xs: "none", md: "flex" },
-                            fontFamily: "monospace",
                             fontWeight: 700,
-                            letterSpacing: ".3rem",
                             color: "inherit",
-                            textDecoration: "none",
+                            textDecoration: "underline",
                         }}
                     >
                         {userLoggedEmail}
@@ -75,7 +66,7 @@ function ResponsiveAppBar({ userLoggedEmail }: ResponsiveAppBarProps) {
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
+                            onClick={(event) => setAnchorElNav(event.currentTarget)}
                             color="inherit"
                         >
                             <MenuIcon />
@@ -93,7 +84,7 @@ function ResponsiveAppBar({ userLoggedEmail }: ResponsiveAppBarProps) {
                                 horizontal: "left",
                             }}
                             open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
+                            onClose={() => setAnchorElNav(null)}
                             sx={{
                                 display: { xs: "block", md: "none" },
                             }}
@@ -142,7 +133,10 @@ function ResponsiveAppBar({ userLoggedEmail }: ResponsiveAppBarProps) {
 
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                            <IconButton
+                                onClick={(event) => setAnchorElUser(event.currentTarget)}
+                                sx={{ p: 0 }}
+                            >
                                 <Avatar
                                     alt={userLoggedEmail.toUpperCase()}
                                     src="/static/images/avatar/2.jpg"
@@ -163,9 +157,9 @@ function ResponsiveAppBar({ userLoggedEmail }: ResponsiveAppBarProps) {
                                 horizontal: "right",
                             }}
                             open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
+                            onClose={() => setAnchorElUser(null)}
                         >
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={handleLogoutUser}>
                                 <Typography textAlign="center">Sair</Typography>
                             </MenuItem>
                         </Menu>
